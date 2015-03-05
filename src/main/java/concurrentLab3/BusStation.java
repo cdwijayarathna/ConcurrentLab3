@@ -28,7 +28,7 @@ public class BusStation {
 		passengersLock.lock();
 		passengers.add(p);
 		passengerCount ++;
-		System.out.println(p.getpId() + " pasenger arrived bus station");
+		System.out.println(p.getpId() + " passenger arrived bus station");
 		passengersLock.unlock();
 		busLock.unlock();
 		return true;
@@ -40,18 +40,20 @@ public class BusStation {
 		Passenger out = passengers.remove(0);
 		passengerCount --;
 		out.boardBus();
-		System.out.println(out.getpId() + " pasenger left bus station");
+		System.out.println(out.getpId() + " passenger left bus station");
 		passengersLock.unlock();
 		
 		return out;
 		
 	}
 	
-	public void busArrived(){
+	public void busArrived(Bus bus){
 		busLock.lock();
+		System.out.println( bus.getBusId() + " bus arrived");
 	}
 	
-	public void busLeave(){
+	public void busLeave(Bus bus){
+		System.out.println( bus.getBusId() + " bus left");
 		busLock.unlock();
 	}
 	

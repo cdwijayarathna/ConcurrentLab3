@@ -5,6 +5,11 @@ public class Bus extends Thread{
 	private Passenger[] passengers = new Passenger[50];
 	private int passengerCount;
 	private BusStation currentStation;
+
+	public int getBusId() {
+		return busId;
+	}
+
 	private int busId;
 	
 	public Bus(BusStation bs, int id){
@@ -14,7 +19,7 @@ public class Bus extends Thread{
 	}
 	
 	public void arriveStation(){
-		currentStation.busArrived();
+		currentStation.busArrived(this);
 	}
 	
 	public void getPassenger(){
@@ -22,17 +27,16 @@ public class Bus extends Thread{
 	}
 	
 	public void leave(){
-		currentStation.busLeave();
+		currentStation.busLeave(this);
 	}
 	
 	public void run(){
 		arriveStation();
-		System.out.println( busId + " bus arrived");
+
 		while(!(passengerCount == 50 || currentStation.getPassengerCount() == 0)){
 			getPassenger();
 		}
 		leave();
-		System.out.println( busId + " bus left");
 	}
 	
 	
